@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=3,6
+export CUDA_VISIBLE_DEVICES=6
 export JAVA_HOME="/home/wangqiyao/IR-WebQ/configs/jdk/graalvm-jdk-24.0.2+11.1"
 export PATH="$JAVA_HOME/bin:$PATH"
 export JVM_PATH="/home/wangqiyao/IR-WebQ/configs/jdk/graalvm-jdk-24.0.2+11.1/lib/server/libjvm.so"
@@ -17,7 +17,7 @@ python3 -m pyserini.encode \
           --to-faiss \
   encoder --encoder $ENCODER\
           --fields text \
-          --batch 32 \
+          --batch 64 \
           --max-length 512 \
           --dimension 1024 \
           --pooling 'cls' \
