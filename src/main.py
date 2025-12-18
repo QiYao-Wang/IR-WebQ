@@ -40,7 +40,7 @@ def main(args):
     candidates_df = load_jsonl(args.candidates_path)
     params = {
         "model_path": args.encoder_path,
-        "idenx_path": args.index_path,
+        "index_path": args.index_path,
         "l2_norm": True,
     }
     retriever = Retriever(**params)
@@ -65,3 +65,29 @@ def main(args):
             ]
         result = [cal_hit(doc_id, sample["answers"],candidates_df) for doc_id in doc_ids]
         results.append(sum(result)/len(result))
+    prefix = f"../outputs/{args.faiss_path.split('/')[-1]}"
+    print(f"> Encoder:{args.encoder_path}")
+    print(f"> Reranker:{args.reranker_path}")
+    for k in [1, 10, 100]:
+        data = []
+        for result in results:
+            data.append(1 if sum(result[:k]) > 0 else 0)
+        df = pd.DataFrame(
+            {
+                "id": range(1, len(data) + 1),
+                "hit": data,
+            }
+        )
+        print(f"{k}\t{sum(data) / len(data)}")
+        df.to_csv(f"{prefix}_hit@{k}.txt", index=False, sep="\t")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--test_path", type=str)
+    parser.add_argument("--candidates_path", type=str)
+    parser.add_argument("--index_path", type=str)
+    parser.add_argument("--encoder_path", type=str)
+    parser.add_argument("--reranker_path", type=str, default=None)
+    args = parser.parse_args()
+    main(args)

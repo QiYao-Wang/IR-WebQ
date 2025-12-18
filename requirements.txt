@@ -1,7 +1,8 @@
 FlagEmbedding==1.3.3
-numpy==2.2.0
-pandas==2.0.0
+numpy==1.26.4
+pandas
 pyserini==0.43.0
 tqdm==4.67.1
 transformers
 spacy
+faiss-gpu
