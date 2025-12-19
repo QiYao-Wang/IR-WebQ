@@ -49,6 +49,7 @@ def main(args):
         query = sample["query"]
         hits = retriever.retrieve(query)
         doc_ids = [hit.docid for hit in hits]
+
         if args.reranker_path is not None:
             reranker = FlagAutoReranker.from_finetuned(
                 args.reranker_path,
@@ -57,15 +58,24 @@ def main(args):
                 device=["auto"],
                 model_class="encoder-only-base"
             )
-            scores = reranker.compute_score(
-                [[query, candidates_df[int(doc_id)]] for doc_id in doc_ids]
-            )
-            doc_ids = [
-                x for x,_ in sorted(zip(doc_ids,scores), key=lambda x:x[1], reverse=True)
+
+            sentence_pairs = [
+                (str(query), str(candidates_df[int(doc_id)]))
+                for doc_id in doc_ids
             ]
-        result = [cal_hit(doc_id, sample["answers"],candidates_df) for doc_id in doc_ids]
-        results.append(sum(result)/len(result))
-    prefix = f"../outputs/{args.faiss_path.split('/')[-1]}"
+
+            scores = reranker.compute_score(sentence_pairs)
+
+            # 根据分数排序 doc_ids
+            doc_ids = [
+                x for x, _ in sorted(zip(doc_ids, scores), key=lambda x: x[1], reverse=True)
+            ]
+
+        result = [cal_hit(doc_id, sample["answers"], candidates_df) for doc_id in doc_ids]
+        results.append(result)
+
+    # hit@k
+    prefix = f"../outputs/{args.index_path.split('/')[-1]}"
     print(f"> Encoder:{args.encoder_path}")
     print(f"> Reranker:{args.reranker_path}")
     for k in [1, 10, 100]:
