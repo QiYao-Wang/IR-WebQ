@@ -6,3 +6,59 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# Project specific ignores
+# 数据集文件夹
+datasets/
+
+# JDK配置
+configs/jdk/
+
+# 日志文件夹
+logs/
+
+# 输出文件夹 - 只保留文件夹结构，忽略内容
+outputs/*
+
+# PKL文件
+*.pkl
+
+# Python缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

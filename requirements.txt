@@ -5,4 +5,9 @@ pyserini==0.43.0
 tqdm==4.67.1
 transformers
 spacy
-faiss-gpu
+torch>=2.0.0
+deepspeed
+accelerate
+datasets
+peft
+bitsandbytes
