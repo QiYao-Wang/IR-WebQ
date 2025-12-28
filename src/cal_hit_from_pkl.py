@@ -48,7 +48,7 @@ def save_hits(hits: Dict[int, List[int]], output_dir: str) -> None:
     os.makedirs(output_dir, exist_ok=True)
     for k, values in hits.items():
         df = pd.DataFrame({"id": range(1, len(values) + 1), "hit": values})
-        out_path = os.path.join(output_dir, f"sft_v1_hit@{k}.txt")
+        out_path = os.path.join(output_dir, f"15_minedHN_sft_v1_hit@{k}.txt")
         df.to_csv(out_path, index=False, sep="\t")
         acc = sum(values) / len(values) if values else 0
         print(f"hit@{k}: {acc:.4f} -> {out_path}")
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--pkl_path",
         type=str,
-        default="/home/yangzhihao/data1_link/UCAS_hmw_term1/IR/outputs/none/retrieval_results.pkl",
+        default="/home/yangzhihao/data1_link/UCAS_hmw_term1/IR/outputs/norerank/mixed/mixed_retrieval_results.pkl",
         help="检索结果 pkl 路径 (top_docs 列表)",
     )
     parser.add_argument(

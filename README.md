@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: hanoiy‘s code
+ * @version: 1.0.0
+ * @Author: hanoiy
+ * @Date: 2025-12-23 17:35:38
+ * @LastEditors: hanoiy
+ * @LastEditTime: 2025-12-28 15:11:07
+-->
 # IR-WebQ
 
 ## Quick Start
@@ -41,8 +49,33 @@ sh scripts/index.sh
 ```
 
 3. Run the Main Program
+The `--methods` parameter supports three options: `mixed`, `hyde`, `listwise_rerank` (comma separated).
 ```bash
-sh scripts/main.sh
+sh scripts/main.sh --reranker_model_path --methods "mixed,hyde"
+```
+If you need reranker, please provide the reranker model path in `main.sh`.
+
+## SFT Reranker Fine-tuning (Optional)
+
+The following steps are optional and only needed if you want to fine-tune the reranker model.
+
+4. Build Training Dataset
+```bash
+sh scripts/build_training_dataset.sh
 ```
 
-If you need reranker, please provide the reranker model path in `main.sh`.
+5. Hard Negative Mining
+```bash
+sh scripts/build_candidate_pool.sh
+sh scripts/hn_mine.sh
+```
+
+6. Fine-tune Reranker
+```bash
+sh scripts/bge_reranker_finetuning.sh --training_data_path $Your-Training-Dataset-Path
+```
+
+7. Run Main Program with Reranker and Evaluate
+```bash
+sh scripts/main.sh --reranker_model_path $Your-Reranker-Model-Path --methods "mixed,hyde"
+``` 

@@ -9,13 +9,12 @@ export PYTHONPATH="$(pwd):$PYTHONPATH"
     --candidates_path datasets/candidate_pool.jsonl \
     --index_path /data/shared/users/wangqiyao/ir-webq/outputs/faiss/bge-m3 \
     --encoder_path /data/shared/users/wangqiyao/models/BAAI/bge-m3 \
-    --reranker_path /home/yangzhihao/data1_link/UCAS_hmw_term1/IR/IR-WebQ/outputs/reranker_ft_both_minedHN_100_v1/checkpoint-114 \
-    --methods "" \
+    --reranker_path /data/shared/users/wangqiyao/models/BAAI/bge-reranker-v2-m3 \
+    --methods "hyde" \
     --bm25_index_path /home/yangzhihao/data1_link/UCAS_hmw_term1/IR/IR-WebQ/outputs/lucene/bm25-webq \
     --hyde_model_path /home/yangzhihao/shared/models/meta-llama/Llama-3.1-8B-Instruct \
     --listwise_model_path /home/yangzhihao/shared/models/meta-llama/Llama-3.1-8B-Instruct \
     --batch_size 128 \
-    --skip_hit_calc
 
 # --save_pkl_path /home/yangzhihao/data1_link/UCAS_hmw_term1/IR/outputs/norerank/retrieval_results.pkl \
 # --reranker_path /data/shared/users/wangqiyao/models/BAAI/bge-reranker-v2-m3
