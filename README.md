@@ -6,7 +6,7 @@
  * @LastEditors: hanoiy
  * @LastEditTime: 2025-12-28 15:11:07
 -->
-# IR-WebQ
+# IR-WebQ: Homework of IR Class in UCAS
 
 ## Quick Start
 
